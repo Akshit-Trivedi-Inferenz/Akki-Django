@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Add reaction
         run: |
-          gh api -X POST /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+          gh api -X POST https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/comments/${{ github.event.comment.id }}/reactions \
           -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
           -f content='heart'
 
