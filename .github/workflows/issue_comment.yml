@@ -44,14 +44,3 @@ jobs:
           ORGANIZATION: ${{ github.event.repository.owner.login }}
           REPOSITORY: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
-
-  add-reaction:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Add reaction
-        run: |
-          gh api -X POST /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
-          -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
-          -f content='heart'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
