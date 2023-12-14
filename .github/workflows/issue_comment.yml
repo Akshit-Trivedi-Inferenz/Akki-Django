@@ -37,7 +37,15 @@ jobs:
             -f body='
             Comment but from the API Call not action :sparkles:
             '
-            -f reactions='heart' 
+
+  add-reaction:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add reaction
+        run: |
+          gh api -X POST /repos/${{ github.repository }}/issues/comments/${{ github.event.comment.id }}/reactions \
+          -H "Accept: application/vnd.github.squirrel-girl-preview+json" \
+          -f content='heart'
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
