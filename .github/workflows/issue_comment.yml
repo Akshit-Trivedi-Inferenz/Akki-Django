@@ -37,6 +37,7 @@ jobs:
             -f body='
             Comment but from the API Call not action :sparkles:
             '
+            -f content='heart' 
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
