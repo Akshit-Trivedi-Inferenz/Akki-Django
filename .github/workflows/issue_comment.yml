@@ -40,6 +40,6 @@ jobs:
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ORGANIZATION: ${{ github.event.repository.owner.login }} #JSON structure changed
+          ORGANIZATION: ${{ github.event.organization.login }} #JSON structure changed
           REPOSITORY: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
