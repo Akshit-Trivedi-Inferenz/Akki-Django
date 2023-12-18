@@ -2,8 +2,3 @@ django
 plotly
 openai
 pandas
-eslint
-prettier
-stylelint
-black
-flake8
