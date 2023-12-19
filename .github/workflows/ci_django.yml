@@ -60,7 +60,7 @@ jobs:
     - uses: actionsx/prettier@v2
       with:
         # prettier CLI arguments.
-        args: --check .
+        args: --write .  
 
     # - name: Super-Lint Code
     #   uses: github/super-linter@v5
