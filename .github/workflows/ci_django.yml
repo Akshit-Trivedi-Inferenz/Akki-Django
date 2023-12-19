@@ -37,7 +37,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Check files using the black formatter
-    - uses: actions/checkout@v2
+    # - uses: actions/checkout@v2
     - uses: rickstaa/action-black@v1
       id: action_black
       with:
