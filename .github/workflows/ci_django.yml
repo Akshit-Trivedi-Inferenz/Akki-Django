@@ -37,7 +37,8 @@ jobs:
         pip install -r requirements.txt
 
     - name: Check files using the black formatter
-      uses: rickstaa/action-black@v1
+    - uses: actions/checkout@v2
+    - uses: rickstaa/action-black@v1
       id: action_black
       with:
         black_args: "."
@@ -54,13 +55,20 @@ jobs:
         base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
         branch: actions/black
 
-    - name: Super-Lint Code
-      uses: github/super-linter@v5
-      env:
-        # DEFAULT_BRANCH: main
-        DEFAULT_BRANCH: actions/black
-        # To report GitHub Actions status checks
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Code Formatter for HTML, CSS & JS
+    - uses: actions/checkout@v2 # Check out the repository first.
+    - uses: actionsx/prettier@v2
+      with:
+        # prettier CLI arguments.
+        args: --check .
+
+    # - name: Super-Lint Code
+    #   uses: github/super-linter@v5
+    #   env:
+    #     # DEFAULT_BRANCH: main
+    #     DEFAULT_BRANCH: actions/black
+    #     # To report GitHub Actions status checks
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Migrations
       run: |
@@ -69,3 +77,8 @@ jobs:
     # - name: Run Tests
     #   run: |
     #     python manage.py test
+
+    - name: Migrations
+    - uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Apply php-cs-fixer changes
