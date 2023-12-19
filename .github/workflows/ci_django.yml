@@ -64,12 +64,13 @@ jobs:
 
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
+      if: steps.prettier.outputs.changes != ''
       with:
-       token: ${{ secrets.GITHUB_TOKEN }}
-       commit-message: "Apply Prettier formatting"
-       title: "Apply Prettier formatting"
-       body: "This PR applies Prettier formatting to the code."
-       branch: "prettier-formatting"
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Apply Prettier formatting"
+        title: "Apply Prettier formatting"
+        body: "This PR applies Prettier formatting to the code."
+        branch: "prettier-formatting"
 
     # - name: Super-Lint Code
     #   uses: github/super-linter@v5
