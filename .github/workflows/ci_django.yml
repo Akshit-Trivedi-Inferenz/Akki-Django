@@ -60,7 +60,16 @@ jobs:
     - uses: actionsx/prettier@v2
       with:
         # prettier CLI arguments.
-        args: --write .  
+        args: --write .
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v3
+      with:
+       token: ${{ secrets.GITHUB_TOKEN }}
+       commit-message: "Apply Prettier formatting"
+       title: "Apply Prettier formatting"
+       body: "This PR applies Prettier formatting to the code."
+       branch: "prettier-formatting"
 
     # - name: Super-Lint Code
     #   uses: github/super-linter@v5
