@@ -90,12 +90,12 @@ jobs:
     #     body: "This PR applies Prettier formatting to the code."
     #     branch: "prettier-formatting"
 
-    - name: AKSHIT
-      uses: stefanzweifel/git-auto-commit-action@v4.5.2
-      with:
-        commit_message: "Apply Prettier formatting"
-        commit_options: "--no-verify"
-        file_pattern: "**/*.{html,css,js}"
+    # - name: AKSHIT
+    #   uses: stefanzweifel/git-auto-commit-action@v4.5.2
+    #   with:
+    #     commit_message: "Apply Prettier formatting"
+    #     commit_options: "--no-verify"
+    #     file_pattern: "**/*.{html,css,js}"
       # id: prettier
 
 
