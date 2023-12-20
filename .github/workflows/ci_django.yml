@@ -80,7 +80,9 @@ jobs:
 
     - name: Check files using the Biome formatter
       run: |
-        npm install --save-dev --save-exact @biomejs/biome
+        # Install Biome if not already installed
+        npm i @biomejs/biome
+        # Run Biome on your codebase
         npx @biomejs/biome ci ./akki_django_app/akki_django_app/templates
 
     - name: Check files using the Biome formatter
