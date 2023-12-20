@@ -57,20 +57,47 @@ jobs:
 
     # - name: Code Formatter for HTML, CSS & JS
     # - uses: actions/checkout@v2 # Check out the repository first.
-    - uses: actionsx/prettier@v2
-      with:
-        # prettier CLI arguments.
-        args: --write .
+    # - uses: actionsx/prettier@v2
+    #   with:
+    #     # prettier CLI arguments.
+    #     args: --write .
 
+    # - name: Create Pull Request
+    #   uses: peter-evans/create-pull-request@v3
+    #   if: steps.prettier.outputs.changes != ''
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit-message: "Apply Prettier formatting"
+    #     title: "Apply Prettier formatting"
+    #     body: "This PR applies Prettier formatting to the code."
+    #     branch: "prettier-formatting"
+
+    - name: Check files using the Biome formatter
+      run: |
+        # Install Biome if not already installed
+        npm install -g biome
+        # Run Biome on your codebase
+        biome --write .
+
+    - name: Check files using the Biome formatter
+      run: |
+        npm install -g biome
+        biome --write .
+    - name: Auto Commit Action
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Format code with Biome
+        file_pattern: '.'
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v3
-      if: steps.prettier.outputs.changes != ''
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        commit-message: "Apply Prettier formatting"
-        title: "Apply Prettier formatting"
-        body: "This PR applies Prettier formatting to the code."
-        branch: "prettier-formatting"
+        commit-message: "Apply Biome formatting"
+        title: "Apply Biome formatting"
+        body: "This PR applies Biome formatting to the code."
+        branch: "biome-formatting"
+
+
 
     # - name: Super-Lint Code
     #   uses: github/super-linter@v5
@@ -88,8 +115,8 @@ jobs:
     #   run: |
     #     python manage.py test
 
-    - name: Auto Commit Action
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: Testing Akki Commit Message
-        file_pattern: '!*.github/workflows/ci_django.yml'
+    # - name: Auto Commit Action
+    #   uses: stefanzweifel/git-auto-commit-action@v5
+    #   with:
+    #     commit_message: Testing Akki Commit Message
+    #     file_pattern: '!*.github/workflows/ci_django.yml'
