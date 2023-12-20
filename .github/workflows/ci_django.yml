@@ -73,7 +73,20 @@ jobs:
     #     branch: "prettier-formatting"
 
     
+    - name: Format HTML, CSS, and JS with Prettier
+      uses: actionsx/prettier@v2
+      with:
+        args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
 
+    - name: Create Pull Request (Prettier)
+      if: steps.prettier.outputs.changes != ''
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Apply Prettier formatting"
+        title: "Apply Prettier formatting"
+        body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
+        branch: "prettier-formatting-fixes"
 
 
     # - name: Super-Lint Code
