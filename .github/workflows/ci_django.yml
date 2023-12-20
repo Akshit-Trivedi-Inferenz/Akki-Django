@@ -73,7 +73,7 @@ jobs:
     #     branch: "prettier-formatting"
 
     - name: Code Formatter for HTML, CSS & JS
-    # - uses: actions/checkout@v2 # Check out the repository first.
+    - uses: actions/checkout@v2 # Check out the repository first.
     - uses: actionsx/prettier@v2
       with:
         # prettier CLI arguments. Adjust as needed for your project.
