@@ -77,7 +77,7 @@ jobs:
         # Install Biome if not already installed
         npm install -g biome
         # Run Biome on your codebase
-        biome --write .
+        npx @biomejs/biome ci ./akki_django_app
 
     - name: Check files using the Biome formatter
       run: |
