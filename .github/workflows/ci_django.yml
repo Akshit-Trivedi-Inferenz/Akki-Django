@@ -72,6 +72,12 @@ jobs:
     #     body: "This PR applies Prettier formatting to the code."
     #     branch: "prettier-formatting"
 
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: '16' # specify the node version
+
+
     - name: Check files using the Biome formatter
       run: |
         # Install Biome if not already installed
