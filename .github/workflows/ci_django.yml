@@ -79,6 +79,7 @@ jobs:
         # prettier CLI arguments. Adjust as needed for your project.
         args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
 
+
     - name: Create Pull Request (Prettier)
       if: steps.prettier.outputs.changes != ''
       uses: peter-evans/create-pull-request@v3
@@ -88,6 +89,13 @@ jobs:
         title: "Apply Prettier formatting"
         body: "This PR applies Prettier formatting to the code."
         branch: "prettier-formatting"
+
+    - uses: stefanzweifel/git-auto-commit-action@v4.5.2
+      with:
+        commit_message: "Apply Prettier formatting"
+        commit_options: "--no-verify"
+        file_pattern: "**/*.{html,css,js}"
+      id: prettier
 
 
 
