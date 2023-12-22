@@ -2,4 +2,3 @@ django
 plotly
 openai
 pandas
-black
