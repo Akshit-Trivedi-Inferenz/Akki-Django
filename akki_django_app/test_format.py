@@ -20,5 +20,5 @@ def main():
         print(f"Value: {i}")
     print("End of main function")
 
-if __name__ == "__main__":
+if __name__ == "__main__"
     main()
