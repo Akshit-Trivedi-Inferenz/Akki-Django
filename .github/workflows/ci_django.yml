@@ -37,6 +37,7 @@ jobs:
         pip install -r requirements.txt
 
     - name: Check files using the black formatter
+      # uses: actions/checkout@v2
       uses: rickstaa/action-black@v1
       id: action_black
       with:
@@ -54,13 +55,47 @@ jobs:
         base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
         branch: actions/black
 
-    - name: Super-Lint Code
-      uses: github/super-linter@v5
-      env:
-        # DEFAULT_BRANCH: main
-        DEFAULT_BRANCH: actions/black
-        # To report GitHub Actions status checks
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Code Formatter for HTML, CSS & JS
+    # - uses: actions/checkout@v2 # Check out the repository first.
+    # - uses: actionsx/prettier@v2
+    #   with:
+    #     # prettier CLI arguments.
+    #     args: --write .
+
+    # - name: Create Pull Request
+    #   uses: peter-evans/create-pull-request@v3
+    #   if: steps.prettier.outputs.changes != ''
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit-message: "Apply Prettier formatting"
+    #     title: "Apply Prettier formatting"
+    #     body: "This PR applies Prettier formatting to the code."
+    #     branch: "prettier-formatting"
+
+    
+    - name: Format HTML, CSS, and JS with Prettier
+      uses: actionsx/prettier@v2
+      with:
+        args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
+
+    - name: Create Pull Request (Prettier)
+      if: steps.prettier.outputs.changes != ''
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Apply Prettier formatting"
+        title: "Apply Prettier formatting"
+        body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
+        branch: "prettier-formatting-fixes"
+
+
+    # - name: Super-Lint Code
+    #   uses: github/super-linter@v5
+    #   env:
+    #     # DEFAULT_BRANCH: main
+    #     DEFAULT_BRANCH: actions/black
+    #     # To report GitHub Actions status checks
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
     - name: Migrations
       run: |
@@ -69,3 +104,9 @@ jobs:
     # - name: Run Tests
     #   run: |
     #     python manage.py test
+
+    - name: Auto Commit Action
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: Testing Akki Commit Message
+        file_pattern: '!*.github/workflows/ci_django.yml'
