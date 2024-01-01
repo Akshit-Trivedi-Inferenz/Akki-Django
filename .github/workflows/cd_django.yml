@@ -39,3 +39,4 @@ jobs:
         version: v1
         deliverables: akki_django_app/app.yaml
         working_directory: akki_django_app
+        run: pwd
