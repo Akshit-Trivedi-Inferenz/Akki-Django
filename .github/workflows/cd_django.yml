@@ -30,4 +30,4 @@ jobs:
         credentials: ${{ secrets.GCP_SA_KEY }}
         project_id: nomadic-vehicle-404406
         version: v1
-        deliverables: cd_django.yml
+        deliverables: app.yml
