@@ -27,6 +27,10 @@ jobs:
     - name: List Files in Directory
       run: ls akki_django_app
 
+    - name: List Directory Structure
+      run: tree
+
+
     # - name: Run tests
     #   run: python manage.py test
 
