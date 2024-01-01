@@ -25,7 +25,7 @@ jobs:
     #   run: python manage.py test
 
     - name: Deploy to Google App Engine
-      uses: google-github-actions/deploy-appengine@main
+      uses: google-github-actions/deploy-appengine@v2
       with:
         credentials: ${{ secrets.GCP_SA_KEY }}
         project_id: nomadic-vehicle-404406
