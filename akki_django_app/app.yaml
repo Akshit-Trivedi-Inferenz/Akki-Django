@@ -1,6 +1,6 @@
 runtime: python39
 env: standard
-entrypoint: gunicorn -b :$PORT your_project_name.wsgi:application
+entrypoint: gunicorn -b :$PORT akki_django_app.wsgi:application
 
 handlers:
 - url: /static
