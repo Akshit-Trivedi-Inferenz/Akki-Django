@@ -43,7 +43,8 @@ jobs:
       with:
         # credentials_json: ${{ secrets.GCP_SA_KEY }}
         workload_identity_provider: 'principal://iam.googleapis.com/projects/79615259848/locations/global/workloadIdentityPools/github-actions-cd-pipeline/subject/SUBJECT_ATTRIBUTE_VALUE'
-        service_account: 'nomadic-vehicle-404406@appspot.gserviceaccount.com'  
+        # service_account: 'nomadic-vehicle-404406@appspot.gserviceaccount.com'
+        service_account: 'github-actions@nomadic-vehicle-404406.iam.gserviceaccount.com'
 
     - name: Deploy to Google App Engine
       uses: google-github-actions/deploy-appengine@v2
