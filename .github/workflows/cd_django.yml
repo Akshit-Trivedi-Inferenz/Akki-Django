@@ -45,9 +45,8 @@ jobs:
       uses: google-github-actions/auth@v0.4.0
       with:
         # credentials_json: ${{ secrets.GCP_SA_KEY }}
-        workload_identity_provider: 'principal://iam.googleapis.com/projects/79615259848/locations/global/workloadIdentityPools/github-actions-cd-pipeline/subject/SUBJECT_ATTRIBUTE_VALUE'
-        # service_account: 'nomadic-vehicle-404406@appspot.gserviceaccount.com'
-        service_account: 'github-actions@nomadic-vehicle-404406.iam.gserviceaccount.com'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
 
     - name: Deploy to Google App Engine
       uses: google-github-actions/deploy-appengine@v2
