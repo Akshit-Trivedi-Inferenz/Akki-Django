@@ -29,10 +29,10 @@ jobs:
       run: pwd
 
     - name: List Files in Directory
-      run: ls ./akki_django_app
+      run: ls akki_django_app
 
     - name : check_permission
-      run: ls -l ./akki_django_app
+      run: ls -l akki_django_app
 
     - name: List Directory Structure
       run: tree
@@ -54,5 +54,5 @@ jobs:
       with:
         project_id: nomadic-vehicle-404406
         version: v1
-        deliverables: ./akki_django_app/app.yaml
-        working_directory: ./akki_django_app
+        deliverables: app.yaml
+        working_directory: akki_django_app
