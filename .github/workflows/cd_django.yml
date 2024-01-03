@@ -54,6 +54,5 @@ jobs:
       with:
         project_id: nomadic-vehicle-404406
         version: v1
-        deliverables: |
-          ./app.yaml
+        deliverables: ./app.yaml
         working_directory: akki_django_app
