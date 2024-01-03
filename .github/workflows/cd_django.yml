@@ -44,9 +44,10 @@ jobs:
     - name: Setup GCP Authentication
       uses: google-github-actions/auth@v0.4.0
       with:
-        # credentials_json: ${{ secrets.GCP_SA_KEY }}
-        workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
-        service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        # workload_identity_provider: '${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}'
+        # service_account: '${{ secrets.SERVICE_ACCOUNT }}'
+      working_directory: akki_django_app
 
     - name: Deploy to Google App Engine
       uses: google-github-actions/deploy-appengine@v2
