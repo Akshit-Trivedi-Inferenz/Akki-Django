@@ -1,4 +1,4 @@
-name: Django CI
+name: Django New CI 5th Jan,2024
 
 on:
   push:
