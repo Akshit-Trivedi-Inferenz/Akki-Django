@@ -1,33 +1,19 @@
-name: Django CI
+name: Django New CI 5th Jan 2024
 
 on:
-  # push:
-  #   branches: [ "main" ]
-  # pull_request:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+  pull_request:
+          branches:
+              - main
 
-  workflow_dispatch:
-
-# permissions:
-#    pull-requests: write
-#    contents: write
 permissions: write-all
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    # strategy:
-    #   max-parallel: 4
-    #   matrix:
-    #     python-version: [3.7, 3.8, 3.9]
 
     steps:
-    # - uses: actions/checkout@v3
-    # - name: Set up Python ${{ matrix.python-version }}
-    #   uses: actions/setup-python@v3
-    #   with:
-    #     python-version: ${{ matrix.python-version }}
     - uses: actions/checkout@v4
     - uses: actions/setup-python@v5
       with:
@@ -39,73 +25,60 @@ jobs:
         pip install -r requirements.txt
 
     - name: Check files using the black formatter
-      # uses: actions/checkout@v2
       uses: rickstaa/action-black@v1
       id: action_black
       with:
         black_args: "."
+
+    - name: Check if files were formatted
+      id: check_formatted
+      run: |
+        if [[ $(git diff --name-only) ]]; then
+          echo "::set-output name=is_formatted::true"
+        else
+          echo "::set-output name=is_formatted::false"
+        fi
+
     - name: Create Pull Request
-      if: steps.action_black.outputs.is_formatted == 'true'
+      if: steps.check_formatted.outputs.is_formatted == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        title: "Format Python code with psf/black push"
         commit-message: ":art: Format Python code with psf/black"
+        title: "Format Python code with psf/black"
         body: |
           There appear to be some python formatting errors in ${{ github.sha }}. This pull request
           uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
         base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
-        branch: actions/black
 
-    # - name: Code Formatter for HTML, CSS & JS
-    # - uses: actions/checkout@v2 # Check out the repository first.
-    # - uses: actionsx/prettier@v2
-    #   with:
-    #     # prettier CLI arguments.
-    #     args: --write .
-
-    # - name: Create Pull Request
-    #   uses: peter-evans/create-pull-request@v3
-    #   if: steps.prettier.outputs.changes != ''
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     commit-message: "Apply Prettier formatting"
-    #     title: "Apply Prettier formatting"
-    #     body: "This PR applies Prettier formatting to the code."
-    #     branch: "prettier-formatting"
-
-    
     - name: Format HTML, CSS, and JS with Prettier
       uses: actionsx/prettier@v2
       with:
         args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
 
+    - name: Check if files were formatted (Prettier)
+      id: check_prettier
+      run: |
+        if [[ $(git diff --name-only) ]]; then
+          echo "::set-output name=changes::true"
+        else
+          echo "::set-output name=changes::false"
+        fi
+
     - name: Create Pull Request (Prettier)
-      if: steps.prettier.outputs.changes != ''
+      if: steps.check_prettier.outputs.changes == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         commit-message: "Apply Prettier formatting"
         title: "Apply Prettier formatting"
         body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
-        branch: "prettier-formatting-fixes"
+        base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
 
-
-    # - name: Super-Lint Code
-    #   uses: github/super-linter@v5
-    #   env:
-    #     # DEFAULT_BRANCH: main
-    #     DEFAULT_BRANCH: actions/black
-    #     # To report GitHub Actions status checks
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
     - name: Migrations
       run: |
         python akki_django_app/manage.py makemigrations
         python akki_django_app/manage.py migrate
-    # - name: Run Tests
-    #   run: |
-    #     python manage.py test
 
     - name: Auto Commit Action
       uses: stefanzweifel/git-auto-commit-action@v5
