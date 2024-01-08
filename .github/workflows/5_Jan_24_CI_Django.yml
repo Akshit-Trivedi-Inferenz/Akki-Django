@@ -30,6 +30,28 @@ jobs:
       with:
         black_args: "."
 
+    # - name: Check if files were formatted
+    #   id: check_formatted
+    #   run: |
+    #     if [[ $(git diff --name-only) ]]; then
+    #       echo "::set-output name=is_formatted::true"
+    #     else
+    #       echo "::set-output name=is_formatted::false"
+    #     fi
+
+    # - name: Create Pull Request
+    #   if: steps.check_formatted.outputs.is_formatted == 'true'
+    #   uses: peter-evans/create-pull-request@v3
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit-message: ":art: Format Python code with psf/black"
+    #     title: "Format Python code with psf/black"
+    #     body: |
+    #       There appear to be some python formatting errors in ${{ github.sha }}. This pull request
+    #       uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
+    #     base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+
+
     - name: Check if files were formatted
       id: check_formatted
       run: |
@@ -49,7 +71,7 @@ jobs:
         body: |
           There appear to be some python formatting errors in ${{ github.sha }}. This pull request
           uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
-        base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+        base: main # Replace with the branch you want to target
 
     - name: Format HTML, CSS, and JS with Prettier
       uses: actionsx/prettier@v2
