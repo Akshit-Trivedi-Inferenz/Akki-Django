@@ -71,8 +71,8 @@ jobs:
         body: |
           There appear to be some python formatting errors in ${{ github.sha }}. This pull request
           uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
-        # base: main # Replace with the branch you want to target
-        base: ${{ github.head_ref }}
+        base: main # Replace with the branch you want to target
+        # base: ${{ github.head_ref }}
 
     - name: Format HTML, CSS, and JS with Prettier
       uses: actionsx/prettier@v2
@@ -96,7 +96,8 @@ jobs:
         commit-message: "Apply Prettier formatting"
         title: "Apply Prettier formatting"
         body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
-        base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+        # base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+        base: main # Creates pull request onto pull request or commit branch
 
     - name: Migrations
       run: |
