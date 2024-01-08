@@ -71,7 +71,8 @@ jobs:
         body: |
           There appear to be some python formatting errors in ${{ github.sha }}. This pull request
           uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
-        base: main # Replace with the branch you want to target
+        # base: main # Replace with the branch you want to target
+        base: ${{ github.head_ref }}
 
     - name: Format HTML, CSS, and JS with Prettier
       uses: actionsx/prettier@v2
