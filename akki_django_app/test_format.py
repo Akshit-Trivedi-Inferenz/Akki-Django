@@ -1,7 +1,7 @@
 import math, random
 
 def poorly_formatted_function(x):
-    print("This function is missing proper indentation")
+    print('This function is missing proper indentation')
     y = 2 * x + 3
     return y
 
