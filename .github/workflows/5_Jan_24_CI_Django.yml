@@ -39,18 +39,31 @@ jobs:
     #       echo "::set-output name=is_formatted::false"
     #     fi
 
+    # - name: Create Pull Request
+    #   if: steps.check_formatted.outputs.is_formatted == 'true'
+    #   uses: peter-evans/create-pull-request@v3
+    #   with:
+    #     token: ${{ secrets.GITHUB_TOKEN }}
+    #     commit-message: ":art: Format Python code with psf/black"
+    #     title: "Format Python code with psf/black"
+    #     body: |
+    #       There appear to be some python formatting errors in ${{ github.sha }}. This pull request
+    #       uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
+    #     # base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+    #     base: main
+
     - name: Create Pull Request
-      # if: steps.check_formatted.outputs.is_formatted == 'true'
+      if: steps.action_black.outputs.is_formatted == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
+        title: "Format Python code with psf/black push"
         commit-message: ":art: Format Python code with psf/black"
-        title: "Format Python code with psf/black"
         body: |
           There appear to be some python formatting errors in ${{ github.sha }}. This pull request
           uses the [psf/black](https://github.com/psf/black) formatter to fix these issues.
-        # base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
-        base: main
+        base: ${{ github.head_ref }} # Creates pull request onto pull request or commit branch
+        branch: actions/black
 
 
     # - name: Check if files were formatted
@@ -80,17 +93,17 @@ jobs:
       with:
         args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
 
-    # - name: Check if files were formatted (Prettier)
-    #   id: check_prettier
-    #   run: |
-    #     if [[ $(git diff --name-only) ]]; then
-    #       echo "::set-output name=changes::true"
-    #     else
-    #       echo "::set-output name=changes::false"
-    #     fi
+    - name: Check if files were formatted (Prettier)
+      id: check_prettier
+      run: |
+        if [[ $(git diff --name-only) ]]; then
+          echo "::set-output name=changes::true"
+        else
+          echo "::set-output name=changes::false"
+        fi
 
     - name: Create Pull Request (Prettier)
-      # if: steps.check_prettier.outputs.changes == 'true'
+      if: steps.check_prettier.outputs.changes == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
