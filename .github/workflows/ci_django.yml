@@ -54,14 +54,29 @@ jobs:
     #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
     #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
 
-    - name: Commit black formatting changes
-      if: steps.action_black.outputs.is_formatted == 'true'
+    # - name: Commit black formatting changes
+    #   if: steps.action_black.outputs.is_formatted == 'true'
+    #   run: |
+    #     git config --global user.name 'github-actions[bot]'
+    #     git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    #     git add .
+    #     git commit -m "Apply Black formatting"
+    #     git push
+
+    - name: Commit changes
+      if: ${{ steps.action_black.outputs.black_changed == 'true' }}
       run: |
-        git config --global user.name 'github-actions[bot]'
-        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-        git add .
-        git commit -m "Apply Black formatting"
-        git push
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -am "Black auto-formatting"
+  
+    - name: Push changes
+      if: ${{ steps.action_black.outputs.black_changed == 'true' }}
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.head_ref }}
+
         
     # - name: Create Pull Request
     #   if: steps.action_black.outputs.is_formatted == 'true'
