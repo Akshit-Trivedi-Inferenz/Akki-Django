@@ -40,7 +40,7 @@ jobs:
     #     fi
 
     - name: Create Pull Request
-      if: steps.check_formatted.outputs.is_formatted == 'true'
+      # if: steps.check_formatted.outputs.is_formatted == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
@@ -90,7 +90,7 @@ jobs:
     #     fi
 
     - name: Create Pull Request (Prettier)
-      if: steps.check_prettier.outputs.changes == 'true'
+      # if: steps.check_prettier.outputs.changes == 'true'
       uses: peter-evans/create-pull-request@v3
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
