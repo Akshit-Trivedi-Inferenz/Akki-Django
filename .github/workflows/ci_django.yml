@@ -45,14 +45,23 @@ jobs:
       with:
         black_args: "."
 
-    - name: Create Pull Request
-      id: cpr
-      uses: peter-evans/create-pull-request@v5
-    - name: Check outputs
-      if: ${{ steps.cpr.outputs.pull-request-number }}
+    # - name: Create Pull Request
+    #   id: cpr
+    #   uses: peter-evans/create-pull-request@v5
+    # - name: Check outputs
+    #   if: ${{ steps.cpr.outputs.pull-request-number }}
+    #   run: |
+    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+
+    - name: Commit black formatting changes
+      if: steps.action_black.outputs.is_formatted == 'true'
       run: |
-        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+        git add .
+        git commit -m "Apply Black formatting"
+        git push
         
     # - name: Create Pull Request
     #   if: steps.action_black.outputs.is_formatted == 'true'
