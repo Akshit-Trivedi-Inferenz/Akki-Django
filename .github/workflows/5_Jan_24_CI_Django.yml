@@ -30,14 +30,14 @@ jobs:
       with:
         black_args: "."
 
-    - name: Check if files were formatted
-      id: check_formatted
-      run: |
-        if [[ $(git diff --name-only) ]]; then
-          echo "::set-output name=is_formatted::true"
-        else
-          echo "::set-output name=is_formatted::false"
-        fi
+    # - name: Check if files were formatted
+    #   id: check_formatted
+    #   run: |
+    #     if [[ $(git diff --name-only) ]]; then
+    #       echo "::set-output name=is_formatted::true"
+    #     else
+    #       echo "::set-output name=is_formatted::false"
+    #     fi
 
     - name: Create Pull Request
       if: steps.check_formatted.outputs.is_formatted == 'true'
@@ -80,14 +80,14 @@ jobs:
       with:
         args: --write "akki_django_app/akki_django_app/templates/**/*.{html,css,js}"
 
-    - name: Check if files were formatted (Prettier)
-      id: check_prettier
-      run: |
-        if [[ $(git diff --name-only) ]]; then
-          echo "::set-output name=changes::true"
-        else
-          echo "::set-output name=changes::false"
-        fi
+    # - name: Check if files were formatted (Prettier)
+    #   id: check_prettier
+    #   run: |
+    #     if [[ $(git diff --name-only) ]]; then
+    #       echo "::set-output name=changes::true"
+    #     else
+    #       echo "::set-output name=changes::false"
+    #     fi
 
     - name: Create Pull Request (Prettier)
       if: steps.check_prettier.outputs.changes == 'true'
