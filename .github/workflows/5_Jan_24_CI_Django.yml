@@ -36,7 +36,7 @@ jobs:
         if [[ $(git diff --name-only) ]]; then
           echo "::set-output name=is_formatted::true"
         else
-          echo "::set-output name=is_formatted::false"
+          echo "::set-output name=is_formatted::true"
         fi
 
     - name: Create Pull Request
