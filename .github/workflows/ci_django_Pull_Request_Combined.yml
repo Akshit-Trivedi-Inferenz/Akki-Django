@@ -132,11 +132,11 @@ jobs:
     
     
     - name: Push changes (Prettier)
-    if: steps.check_prettier.outputs.changes == 'true'
-    uses: ad-m/github-push-action@master    
-    with:    
-      github_token: ${{ secrets.GITHUB_TOKEN }}
-      branch: ${{ github.head_ref }}
+      if: steps.check_prettier.outputs.changes == 'true'
+      uses: ad-m/github-push-action@master    
+      with:    
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.head_ref }}
       
 
     # - name: Create Pull Request (Prettier)
