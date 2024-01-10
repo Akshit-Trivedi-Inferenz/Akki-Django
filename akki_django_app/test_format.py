@@ -18,7 +18,7 @@ def main():
     print("This is the main function")
     for i in range(5):
         print(f"Value: {i}")
-    print("End of main function")
+    print('End of main function')
 
 if __name__ == "__main__":
    main()
