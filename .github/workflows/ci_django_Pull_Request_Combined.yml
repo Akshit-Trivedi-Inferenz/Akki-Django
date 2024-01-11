@@ -60,7 +60,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add .
         git commit -m "Apply Black formatting"
-        git push
+        # git push
 
     # - name: Commit changes
     #   if: ${{ steps.action_black.outputs.black_changed == 'true' }}
@@ -136,7 +136,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add .
         git commit -m "Apply Prettier formatting"
-        git push
+        # git push
     
     
     
@@ -176,8 +176,8 @@ jobs:
     #   run: |
     #     python manage.py test
 
-    - name: Auto Commit Action
-      uses: stefanzweifel/git-auto-commit-action@v5
-      with:
-        commit_message: Testing Akki Commit Message
-        file_pattern: '!*.github/workflows/ci_django.yml'
+    # - name: Auto Commit Action
+    #   uses: stefanzweifel/git-auto-commit-action@v5
+    #   with:
+    #     commit_message: Testing Akki Commit Message
+    #     file_pattern: '!*.github/workflows/ci_django.yml'
