@@ -3,7 +3,8 @@ name: Django CI Pull Request Combined
 on:
   # push:
   #   branches: [ "main" ]
-  pull_request:
+  # pull_request:
+  pull_request_target:
     branches: [ "main" ]
 
   # workflow_dispatch:
