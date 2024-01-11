@@ -60,7 +60,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add .
         git commit -m "Apply Black formatting"
-        git push origin HEAD
+        git push origin HEAD:${{ github.head_ref }}
 
     # - name: Commit changes
     #   if: ${{ steps.action_black.outputs.black_changed == 'true' }}
@@ -136,7 +136,7 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add .
         git commit -m "Apply Prettier formatting"
-        git push origin HEAD
+        git push origin HEAD:${{ github.head_ref }}
     
     
     
