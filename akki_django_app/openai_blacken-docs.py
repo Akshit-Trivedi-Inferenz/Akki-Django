@@ -12,15 +12,11 @@ from black.mode import TargetVersion
 from black.const import DEFAULT_LINE_LENGTH
 
 MD_RE = re.compile(
-    r"(?P<before>^(?P<indent> *)```\s*python\n)"
-    r"(?P<code>.*?)"
-    r"(?P<after>^(?P=indent)```\s*$)",
+    r"(?P<before>^(?P<indent> *)```\s*python\n)" r"(?P<code>.*?)" r"(?P<after>^(?P=indent)```\s*$)",
     re.DOTALL | re.MULTILINE,
 )
 MD_PYCON_RE = re.compile(
-    r"(?P<before>^(?P<indent> *)```\s*pycon\n)"
-    r"(?P<code>.*?)"
-    r"(?P<after>^(?P=indent)```.*$)",
+    r"(?P<before>^(?P<indent> *)```\s*pycon\n)" r"(?P<code>.*?)" r"(?P<after>^(?P=indent)```.*$)",
     re.DOTALL | re.MULTILINE,
 )
 RST_PY_LANGS = frozenset(("python", "py", "sage", "python3", "py3", "numpy"))
@@ -60,9 +56,7 @@ LATEX_RE = re.compile(
     re.DOTALL | re.MULTILINE,
 )
 LATEX_PYCON_RE = re.compile(
-    r"(?P<before>^(?P<indent> *)\\begin{minted}{pycon}\n)"
-    r"(?P<code>.*?)"
-    r"(?P<after>^(?P=indent)\\end{minted}\s*$)",
+    r"(?P<before>^(?P<indent> *)\\begin{minted}{pycon}\n)" r"(?P<code>.*?)" r"(?P<after>^(?P=indent)\\end{minted}\s*$)",
     re.DOTALL | re.MULTILINE,
 )
 PYTHONTEX_LANG = r"(?P<lang>pyblock|pycode|pyconsole|pyverbatim)"
