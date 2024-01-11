@@ -54,29 +54,21 @@ jobs:
     #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
     #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
 
-    - name: Commit black formatting changes
-      if: steps.action_black.outputs.is_formatted == 'true'
-      run: |
+    # - name: Commit black formatting changes
+    #   if: steps.action_black.outputs.is_formatted == 'true'
+    #   run: |
         # git config --global user.name 'github-actions[bot]'
         # git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         # git add .
         # git commit -m "Apply Black formatting"
-        # git push "${{ github.head_ref }}"
+        # git push
 
-         git config --global user.name 'github-actions[bot]'
-         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-         git add .
-         git commit -m "Apply Black formatting"
-         git checkout -b temp_branch
-         git pull origin main
-         git push origin "${{ github.head_ref }}"
-
-    # - name: Commit changes
-    #   if: ${{ steps.action_black.outputs.black_changed == 'true' }}
-    #   run: |
-    #     git config --local user.email "action@github.com"
-    #     git config --local user.name "GitHub Action"
-    #     git commit -am "Black auto-formatting"
+    - name: Commit changes
+      if: ${{ steps.action_black.outputs.black_changed == 'true' }}
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -am "Black auto-formatting"
   
     # - name: Push changes
     #   if: ${{ steps.action_black.outputs.black_changed == 'true' }}
@@ -131,30 +123,21 @@ jobs:
           echo "::set-output name=changes::false"
         fi
 
-    # - name: Commit changes (Prettier)      
-    #   if: steps.check_prettier.outputs.changes == 'true'    
-    #   run: |    
-    #     git config --local user.email "action@github.com"      
-    #     git config --local user.name "GitHub Action"      
-    #     git commit -am "Prettier auto-formatting"
-
-    - name: Commit black formatting changes
-      if: steps.check_prettier.outputs.changes == 'true'
-      run: |
+    # - name: Commit black formatting changes
+    #   if: steps.check_prettier.outputs.changes == 'true'
+    #   run: |
         # git config --global user.name 'github-actions[bot]'
         # git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         # git add .
         # git commit -m "Apply Prettier formatting"
-        # git push "${{ github.head_ref }}"
+        # git push
 
-
-         git config --global user.name 'github-actions[bot]'
-         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-         git add .
-         git commit -m "Apply Black formatting"
-         git checkout -b temp_branch
-         git pull origin main
-         git push origin "${{ github.head_ref }}"
+    - name: Commit changes (Prettier)      
+      if: steps.check_prettier.outputs.changes == 'true'    
+      run: |    
+        git config --local user.email "action@github.com"      
+        git config --local user.name "GitHub Action"      
+        git commit -am "Prettier auto-formatting"
     
     
     
