@@ -45,14 +45,14 @@ jobs:
       with:
         black_args: "."
 
-    # - name: Create Pull Request
-    #   id: cpr
-    #   uses: peter-evans/create-pull-request@v5
-    # - name: Check outputs
-    #   if: ${{ steps.cpr.outputs.pull-request-number }}
-    #   run: |
-    #     echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
-    #     echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
+    - name: Create Pull Request
+      id: cpr
+      uses: peter-evans/create-pull-request@v5
+    - name: Check outputs
+      if: ${{ steps.cpr.outputs.pull-request-number }}
+      run: |
+        echo "Pull Request Number - ${{ steps.cpr.outputs.pull-request-number }}"
+        echo "Pull Request URL - ${{ steps.cpr.outputs.pull-request-url }}"
 
     - name: Commit black formatting changes
       if: steps.action_black.outputs.is_formatted == 'true'
@@ -151,16 +151,16 @@ jobs:
     #     branch: ${{ github.head_ref }}
       
 
-    # - name: Create Pull Request (Prettier)
-    #   # if: steps.prettier.outputs.changes != ''
-    #   if: steps.check_prettier.outputs.changes == 'true'
-    #   uses: peter-evans/create-pull-request@v3
-    #   with:
-    #     token: ${{ secrets.GITHUB_TOKEN }}
-    #     commit-message: "Apply Prettier formatting"
-    #     title: "Apply Prettier formatting"
-    #     body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
-    #     branch: "prettier-formatting-fixes"
+    - name: Create Pull Request (Prettier)
+      # if: steps.prettier.outputs.changes != ''
+      if: steps.check_prettier.outputs.changes == 'true'
+      uses: peter-evans/create-pull-request@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Apply Prettier formatting"
+        title: "Apply Prettier formatting"
+        body: "This PR applies Prettier formatting to HTML, CSS, and JS files."
+        branch: "prettier-formatting-fixes"
 
 
     # - name: Super-Lint Code
